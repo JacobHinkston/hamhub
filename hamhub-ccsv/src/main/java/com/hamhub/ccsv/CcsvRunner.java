@@ -20,12 +20,12 @@ public class CcsvRunner {
 
         File file = new File(filePath);
         csvReader = new CsvReader(file, "");
-        FT3D ft3d = (FT3D) csvReader.export();
-        List<String> ft3dRowsByName = ft3d.getColumnByName(FT3D.Column.COMMENT.getLabel());
-        for(String name: ft3dRowsByName) {
-            System.out.println(name);
-        }
-        ft3d.printRowColumnValues();
+        // FT3D ft3d = (FT3D) csvReader.export();
+        // List<String> ft3dRowsByName = ft3d.getColumnByName(FT3D.Column.COMMENT.getLabel());
+        // for(String name: ft3dRowsByName) {
+        //     System.out.println(name);
+        // }
+        // ft3d.printRowColumnValues();
 
     }
 }

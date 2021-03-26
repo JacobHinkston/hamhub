@@ -1,98 +1,89 @@
 package com.hamhub.api.yeasu;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import com.hamhub.api.BaseColumn;
-import com.hamhub.api.yeasu.FT3D.Column;
+import com.hamhub.api.base.BaseRow;
+import com.hamhub.api.Format;
+import com.hamhub.api.baofeng.UV5R;
+import com.hamhub.common.frequency.Frequency;
 
-public class FT3DRow extends BaseColumn {
+public class FT3DRow extends BaseRow {
 
-    /**
-     * Column values for an FT3D, mapped by String <FT3D.Column.label> to the raw value;
-     * This is janky as hell, and needs to use Objects instead. That will happen later.
-     * TODO: Use Objects for in-line types.
-     */
-    Map<String, String> columnValues = new HashMap<>();
+   public FT3DRow(List<String> row) {
+      super(row);
+      setFormat(Format.FT3D);
+   }
 
-    /**
-     * String[] of columns used to create the column.
-     */
-    private List<String> columns;
+   private void init(List<String> row) {
+      
+      // Check to make sure the row size is correct.
+      if (row.size() < FT3DColumn.HEADER_SIZE) {
+         throw new IllegalStateException("FT3DRow::init, ERROR - FT3D Row size was incorrect.");
+      }
 
-    /**
-     * int that stores the header column counts.
-     */
-    private static final int FT3D_HEADER_SIZE = FT3D.Column.getHeaderSize();
 
-    /**
-     * Primary constructor
-     * @param columns
-     */
-    public FT3DRow(List<String> columns) {
-        this.columns = columns;
-    }
+      for (int i = 0; i < row.size(); i++) {
 
-    /**
-     * Initialize the column given a String[] of columns.
-     * @param columns
-     * @return
-     * TODO: Learn how to do better error handling xD.
-     */
-    public void init() throws Exception {
+         // Capture the Value and the column-type.
+         String val = row.get(i);
+         FT3DColumn column = FT3DColumn.getColumnAtIndex(i);
 
-        int columnError = -1;
-        for (int i = 0; i < columns.size(); i++) {
+         String regex = column.getValidator();
+         Pattern pattern;
 
-            String columnValue = columns.get(i); 
-            Column columnByIndex = Column.getColumnAtIndex(i);
+         if (regex != null) {
+            pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(val);
 
-            columnError = verifyColumn(columnValue, i);
-            if (columnError == -1) {
-                
-                // This is stupid, prob should find a better key to use in this map? :thinking:
-                // TODO: Figure out how to write code. :feels-pain:
-                columnValues.put(columnByIndex.getLabel(), columnValue);
-            } else {
-                // If a column error was found, report it.
-                throw new Exception("Column:" + i + ". VALUE=" + columnValue);
-            
+            if (!matcher.find()) {
+               // TODO: Implement
             }
         }
 
-    }
-
-    /**
-     * Return the index of a column error.
-     * @param columnValue
-     * @param column
-     * @return
-     */
-    private int verifyColumn(String rowValue, int column) {
-        // TODO: IMPLEMENT
-        return -1;
-    }
-
-    public Map<String, String> getColumnValues() {
-        return columnValues;
-    }
-
-    public void setColumnValues(Map<String, String> columnValues) {
-        this.columnValues = columnValues;
-    }
-
-    public List<String> getColumns() {
-        return columns;
-    }
-
-    public String getColumnValueByName(String name) {
-        return this.columnValues.get(name);
-    }
-
-    public void setColumns(List<String> columns) {
-        this.columns = columns;
-    }
-
-
+         switch(i) {
+            case 0:
+               setIndex(Integer.parseInt(val));
+               break;
+            case 1:
+               Frequency rxFrequency = new Frequency(val);
+               setRxFrequency(rxFrequency);
+               break;
+            case 2:
+               Frequency txFrequency = new Frequency(val);
+               setTxFrequency(txFrequency);
+               break;
+            case 3:
+               Frequency offsetFrequency = new Frequency(val);
+               setOffsetFrequency(offsetFrequency);
+               break;
+            case 4:
+               setOffsetDirection(val);
+               break;
+            case 5:
+               setMode(val);
+               break;
+            case 7:
+               setChannelName(val);
+               break;
+            case 8:
+               setToneMode(val);
+               break;
+            case 9:
+               Frequency txCtcss = new Frequency(val);
+               setTxCtcss(txCtcss);
+               break;
+            case 14: 
+               Frequency rxCtcss = new Frequency(val);
+               setRxCtcss(rxCtcss);
+               break;
+            case 47:
+               setComment(val);
+               break;
+            default:
+               addMetaData(column.getLabel(), val);
+         }
+      }
+   }
 }
