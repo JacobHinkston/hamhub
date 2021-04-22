@@ -1,4 +1,4 @@
-package com.hamhub.ccsv.utils;
+package org.hamhub.ccsv.utils;
 
 import org.junit.jupiter.api.Test;
 
