@@ -1,9 +1,7 @@
 package org.hamhub.ccsv.common;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 import org.hamhub.api.baofeng.UV5RColumn;
@@ -17,22 +15,37 @@ import java.io.FileNotFoundException;
 public class CsvReader {
 
     /**
-     * File that maintains the requested parse.
-     */
-    private File file;
-
-    /**
      * Format detected from read.
      */
     private Format format = Format.NONE;
+
+    /**
+     * Holds the CSV
+     */
+    private List<List<String>> csv;
     
     /**
      * @Constructor
      * @param csvFile
      */
-    public CsvReader(File file, String exportFormat) {
-        this.file = file;
+    public CsvReader(File file) {
         init(file);
+    }
+
+    /**
+     * Returns the csv.
+     * @return
+     */
+    public List<List<String>> getCsv() {
+        return this.csv;
+    }
+
+    /**
+     * Returns the Format of the read csv.
+     * @return
+     */
+    public Format getFormat() {
+        return this.format;
     }
 
     /**
@@ -50,14 +63,19 @@ public class CsvReader {
                 List<String> header = readLine(line);
                 try {
                     this.format = detectFormat(header);
-                    List<List<String>> lines = readLines(scanner);
+                    if (format != Format.NONE) {
+                        this.csv = readLines(scanner);
+                    } else {
+                        System.err.println("CcsvReader::init, ERROR - The CSV read had no format.");
+                    }
+                    
                 } catch (Exception e) {
-                    System.out.println("CsvReader::detectHeader, ERROR - " + e);
+                    System.err.println("CsvReader::detectHeader, ERROR - " + e);
                     format = Format.NONE;
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("CsvReader::init, ERROR - File, " +  this.file.getPath() + ", could not be found.");
+            System.out.println("CsvReader::init, ERROR - File, " +  csvFile.getPath() + ", could not be found.");
         }
     }
 
@@ -109,7 +127,7 @@ public class CsvReader {
                 return Format.UV5R;
             }
         } else {
-            System.out.println("There was a problem detecting the header:\n" +
+            System.err.println("There was a problem detecting the header:\n" +
                 "Csv Header Length: " + header.size() + "\n" + 
                 "FT3D Header Length: " + ft3dHeaderSize + "\n" + 
                 "UV5R Header Length: " + uv5rHeaderSize + "\n");
@@ -175,9 +193,14 @@ public class CsvReader {
         while(scanner.hasNextLine()) {
             String line = scanner.nextLine();
             List<String> row = readLine(line);
-            csv.add(row);
-        }
 
+            // We do want to catch if the row is empty.
+            // In the slight chance there are values at the end of the CSV,
+            // We don't just want to skip them, add them.
+            if (!Validator.isEmptyRow(row)) {
+                csv.add(row);
+            }  
+        }
         return csv;
     }
 }

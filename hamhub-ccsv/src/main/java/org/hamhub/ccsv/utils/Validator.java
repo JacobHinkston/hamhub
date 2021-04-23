@@ -51,7 +51,7 @@ public class Validator {
      */
     public static boolean isEmptyRow(List<String> row) {
 
-        final int tolerance = 3;
+        final int tolerance = 7;
         int count = 0;
 
         for (String value : row) {

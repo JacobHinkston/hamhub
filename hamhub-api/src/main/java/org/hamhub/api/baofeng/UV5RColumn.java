@@ -12,7 +12,7 @@ public enum UV5RColumn {
     RX(2, "Frequency", "145.00000", "([0-9]){1,3}\\.([0-9]{3})(5|0)([0]{2})"),
     DUPLEX(3, "Duplex", "", "(off|-|\\+)?"),
     OFFSET(4, "Offset", "0.000000", "(0|5{1})\\.(6|0)([0]{5})"),
-    TONE_MODE(5, "Tone", "", "Tone|DTCS"),
+    TONE_MODE(5, "Tone", "", "(Tone|DTCS)?"),
     TX_CTCSS(6, "rToneFreq", "88.5", "([0-9]{1,3})\\.([0-9]{1})"),
     RX_CTCSS(7, "cToneFreq", "88.5", "([0-9]{1,2})\\.([0-9]{1})"),
     DCS_CODE(8, "DtcsCode", "023", "[0-9]{3}"),

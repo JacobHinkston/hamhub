@@ -1,16 +1,33 @@
 package org.hamhub.api.base;
 
-import org.hamhub.api.Format;
-
 import java.util.List;
 
 public class BaseCsv {
 
-    private Format format;
+    protected List<? extends BaseRow> rows;
 
-    private List<? extends BaseRow> rows;
+    protected static int MEMORY_SIZE;
 
     public BaseCsv(List<? extends BaseRow> rows) {
+        
         this.rows = rows;
     }
+
+    public void printCsvParsed() {
+
+        System.out.println();
+
+        if (rows.size() > 0) {
+
+            rows.forEach(row -> {
+                row.printRow();
+            });
+
+        } else {
+            System.err.println("BaseCsv::printRows, INFO - Nothing to print, rows are empty.");
+        }
+
+        System.out.println();
+    }
+
 }

@@ -16,11 +16,13 @@ public class FT3DRow extends BaseRow {
       setFormat(Format.FT3D);
    }
 
-   private void init(List<String> row) {
+   @Override
+   public int init() {
       
       // Check to make sure the row size is correct.
-      if (row.size() < FT3DColumn.HEADER_SIZE) {
-         throw new IllegalStateException("FT3DRow::init, ERROR - FT3D Row size was incorrect.");
+      if (row.size() > FT3DColumn.HEADER_SIZE) {
+         System.err.println("FT3DRow::init, ERROR - FT3D Row size was incorrect.");
+         return 0;
       }
 
 
@@ -38,7 +40,7 @@ public class FT3DRow extends BaseRow {
             Matcher matcher = pattern.matcher(val);
 
             if (!matcher.find()) {
-               // TODO: Implement
+               return i;
             }
         }
 
@@ -85,5 +87,7 @@ public class FT3DRow extends BaseRow {
                addMetaData(column.getLabel(), val);
          }
       }
+
+      return -1;
    }
 }

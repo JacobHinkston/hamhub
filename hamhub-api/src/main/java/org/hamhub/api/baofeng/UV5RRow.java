@@ -15,11 +15,13 @@ public class UV5RRow extends BaseRow {
       this.setFormat(Format.UV5R);
    }
 
-   private void init(List<String> row) {
+   @Override
+   public int init() {
       
       // Check to make sure the row size is correct.
-      if (row.size() < UV5RColumn.HEADER_SIZE) {
-        throw new IllegalStateException("UV5RRow::init, ERROR - UV5R Row size was incorrect.");
+      if (row.size() > UV5RColumn.HEADER_SIZE) {
+        System.err.println("UV5RRow::init, ERROR - UV5R Row size was incorrect.");
+        return 0;
       }
 
       for (int i = 0; i < row.size(); i++) {
@@ -36,7 +38,7 @@ public class UV5RRow extends BaseRow {
             Matcher matcher = pattern.matcher(val);
 
             if (!matcher.find()) {
-                // TODO: Implement
+                return i;
             }
         }
 
@@ -77,6 +79,7 @@ public class UV5RRow extends BaseRow {
                addMetaData(column.getLabel(), val);
          }
       }
+      
+      return -1;
    }
 }
-

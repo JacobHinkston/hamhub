@@ -11,7 +11,7 @@ import java.util.Map;
 public class BaseRow {
     
     private Format format;
-    private List<String> row;
+    protected List<String> row;
 
     private int index;
     private String channelName;
@@ -36,8 +36,17 @@ public class BaseRow {
         this.row = row;
     }
 
-    private void init(List<String> row) {
-        // Not Implemented.
+    public int init() {
+        return -1;
+    }
+
+    public void printRow() {
+
+        for (String column: row) {
+            System.out.print(column + ", ");
+        }
+
+        System.out.println();
     }
 
     public Format getFormat() { return format; }
@@ -97,4 +106,5 @@ public class BaseRow {
     public void setMetaData(Map<String, String> metaData) { this.metaData = metaData; }
 
     public void addMetaData(String key, String value) { this.metaData.put(key, value); } 
+
 }
