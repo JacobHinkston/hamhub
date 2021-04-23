@@ -2,7 +2,7 @@ package org.hamhub.api.base;
 
 import java.util.List;
 
-public class BaseCsv {
+abstract public class BaseCsv {
 
     protected List<? extends BaseRow> rows;
 
@@ -11,6 +11,10 @@ public class BaseCsv {
     public BaseCsv(List<? extends BaseRow> rows) {
         
         this.rows = rows;
+    }
+
+    public List<? extends BaseRow> getRows() {
+        return this.rows;
     }
 
     public void printCsvParsed() {

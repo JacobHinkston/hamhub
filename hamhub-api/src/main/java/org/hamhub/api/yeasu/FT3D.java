@@ -7,7 +7,6 @@ import org.hamhub.api.base.BaseCsv;
 import org.hamhub.api.base.BaseRow;
 
 public class FT3D extends BaseCsv {
-    // TODO: Implement
 
     private static final int MEMORY_SIZE = 999;
 
