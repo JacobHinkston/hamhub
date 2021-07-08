@@ -2,6 +2,9 @@ package org.hamhub.api.base;
 
 import org.hamhub.api.Format;
 import org.hamhub.common.frequency.Frequency;
+import org.hamhub.common.frequency.model.Ctcss;
+import org.hamhub.common.frequency.model.Offset;
+import org.hamhub.common.frequency.model.TxRx;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,13 +19,13 @@ public class BaseRow {
     private int index;
     private String channelName;
     private String mode;
-    private Frequency rxFrequency;
-    private Frequency txFrequency;
-    private Frequency offsetFrequency;
+    private TxRx rxFrequency;
+    private TxRx txFrequency;
+    private Offset offsetFrequency;
     private String offsetDirection;
     private String toneMode;
-    private Frequency txCtcss;
-    private Frequency rxCtcss;
+    private Ctcss txCtcss;
+    private Ctcss rxCtcss;
     private String comment;
 
     public Map<String, String> metaData = new HashMap<>();
@@ -69,17 +72,17 @@ public class BaseRow {
 
     public void setMode(String mode) { this.mode = mode; }
 
-    public Frequency getRxFrequency() { return rxFrequency; }
+    public TxRx getRxFrequency() { return rxFrequency; }
 
-    public void setRxFrequency(Frequency rxFrequency) { this.rxFrequency = rxFrequency; }
+    public void setRxFrequency(TxRx rxFrequency) { this.rxFrequency = rxFrequency; }
 
-    public Frequency getTxFrequency() { return txFrequency; }
+    public TxRx getTxFrequency() { return txFrequency; }
 
-    public void setTxFrequency(Frequency txFrequency) { this.txFrequency = txFrequency; }
+    public void setTxFrequency(TxRx txFrequency) { this.txFrequency = txFrequency; }
 
-    public Frequency getOffsetFrequency() { return offsetFrequency; }
+    public Offset getOffsetFrequency() { return offsetFrequency; }
 
-    public void setOffsetFrequency(Frequency offsetFrequency) { this.offsetFrequency = offsetFrequency; }
+    public void setOffsetFrequency(Offset offsetFrequency) { this.offsetFrequency = offsetFrequency; }
 
     public String getOffsetDirection() { return offsetDirection; }
 
@@ -89,13 +92,13 @@ public class BaseRow {
 
     public void setToneMode(String toneMode) { this.toneMode = toneMode; }
 
-    public Frequency getTxCtcss() { return txCtcss; }
+    public Ctcss getTxCtcss() { return txCtcss; }
 
-    public void setTxCtcss(Frequency txCtcss) { this.txCtcss = txCtcss; }
+    public void setTxCtcss(Ctcss txCtcss) { this.txCtcss = txCtcss; }
 
     public Frequency getRxCtcss() { return rxCtcss; }
 
-    public void setRxCtcss(Frequency rxCtcss) { this.rxCtcss = rxCtcss; }
+    public void setRxCtcss(Ctcss rxCtcss) { this.rxCtcss = rxCtcss; }
 
     public String getComment() { return comment; }
 

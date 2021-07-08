@@ -6,7 +6,9 @@ import java.util.regex.Pattern;
 
 import org.hamhub.api.base.BaseRow;
 import org.hamhub.api.Format;
-import org.hamhub.common.frequency.Frequency;
+import org.hamhub.common.frequency.model.Ctcss;
+import org.hamhub.common.frequency.model.Offset;
+import org.hamhub.common.frequency.model.TxRx;
 
 public class UV5RRow extends BaseRow {
 
@@ -50,25 +52,25 @@ public class UV5RRow extends BaseRow {
                 setChannelName(val);
                 break;
             case 2:
-                Frequency rx_txFrequency = new Frequency(val);
+                TxRx rx_txFrequency = new TxRx(val);
                 setRxFrequency(rx_txFrequency);
                 setTxFrequency(rx_txFrequency);
             case 3:
                 setOffsetDirection(val);
                 break;
             case 4:
-                Frequency offsetFrequency = new Frequency(val);
+                Offset offsetFrequency = new Offset(val);
                 setOffsetFrequency(offsetFrequency);
                 break;
             case 5: 
                 setToneMode(val);
                 break;
             case 6:
-                Frequency txFrequency = new Frequency(val);
-                setTxCtcss(txFrequency);
+                Ctcss txCtcssFrequency = new Ctcss(val);
+                setTxCtcss(txCtcssFrequency);
             case 7:
-                Frequency rxFrequency = new Frequency(val);
-                setRxCtcss(rxFrequency);
+                Ctcss rxCtcssFrequency = new Ctcss(val);
+                setRxCtcss(rxCtcssFrequency);
             case 10:
                 setMode(val);
                 break;

@@ -7,7 +7,9 @@ import java.util.regex.Pattern;
 import org.hamhub.api.base.BaseRow;
 import org.hamhub.api.Format;
 import org.hamhub.api.baofeng.UV5R;
-import org.hamhub.common.frequency.Frequency;
+import org.hamhub.common.frequency.model.Ctcss;
+import org.hamhub.common.frequency.model.Offset;
+import org.hamhub.common.frequency.model.TxRx;
 
 public class FT3DRow extends BaseRow {
 
@@ -49,15 +51,15 @@ public class FT3DRow extends BaseRow {
                setIndex(Integer.parseInt(val));
                break;
             case 1:
-               Frequency rxFrequency = new Frequency(val);
+               TxRx rxFrequency = new TxRx(val);
                setRxFrequency(rxFrequency);
                break;
             case 2:
-               Frequency txFrequency = new Frequency(val);
+               TxRx txFrequency = new TxRx(val);
                setTxFrequency(txFrequency);
                break;
             case 3:
-               Frequency offsetFrequency = new Frequency(val);
+               Offset offsetFrequency = new Offset(val);
                setOffsetFrequency(offsetFrequency);
                break;
             case 4:
@@ -73,11 +75,11 @@ public class FT3DRow extends BaseRow {
                setToneMode(val);
                break;
             case 9:
-               Frequency txCtcss = new Frequency(val);
+               Ctcss txCtcss = new Ctcss(val);
                setTxCtcss(txCtcss);
                break;
             case 14: 
-               Frequency rxCtcss = new Frequency(val);
+               Ctcss rxCtcss = new Ctcss(val);
                setRxCtcss(rxCtcss);
                break;
             case 47:
