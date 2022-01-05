@@ -15,7 +15,7 @@ public class Frequency {
         this.frequency = frequency;
     }
 
-    protected boolean init(FrequencyType[] frequencyTypes) {
+    protected boolean validate(FrequencyType[] frequencyTypes) {
         boolean match = false;
         Pattern pattern = null;
         Matcher matcher = null;
@@ -31,5 +31,9 @@ public class Frequency {
         }
 
         return match;
+    }
+
+    protected void init() {
+
     }
 }

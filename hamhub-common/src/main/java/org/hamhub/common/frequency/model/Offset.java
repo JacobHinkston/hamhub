@@ -13,10 +13,16 @@ public class Offset extends Frequency {
             FrequencyType.OFFSET_UNIT
         };
 
-        boolean valid = init(frequencyTypes);
+        boolean valid = validate(frequencyTypes);
 
         if (!valid) {
             System.err.println("Offset Frequency: " + frequency + " is not valid.");
+        } else {
+            init();
         }
-    }  
+    }
+
+    private void init() {
+        
+    }
 }

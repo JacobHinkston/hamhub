@@ -1,10 +1,10 @@
 package org.hamhub.ccsv;
 
-import org.hamhub.ccsv.common.CsvReader;
 import org.hamhub.api.Format;
 import org.hamhub.api.baofeng.UV5R;
 import org.hamhub.api.base.BaseCsv;
 import org.hamhub.api.yeasu.FT3D;
+import org.hamhub.ccsv.utils.CsvReader;
 
 import java.io.File;
 import java.io.FileNotFoundException;

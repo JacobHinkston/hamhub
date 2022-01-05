@@ -10,19 +10,21 @@ public enum FrequencyType {
     * 123.5
     * 131.8
     */
-    CTCSS("([0-9]{2,3})\\.([0-9]{1})"),
+    CTCSS("[0-9]{2,3}\\.[0-9]{1}", 0, -1),
 
     /**
      * Catches common UV5R Offset.
      * 5.000000
+     * 0.600000
      */
-    OFFSET("(([0-9]{1})|())\\.([0-9]{6})"),
+    OFFSET("(([1-9]{1}\\.[0]{1})|([0]{1}\\.[1-9]{1}))([0]{5})", 0, -1),
 
     /**
      * Catches common FT3D offset
-     * 5 MHz
+     * 5.00000 kHz
+     * 600 MHz
      */
-    OFFSET_UNIT("([0-9]{1,3}\skHz)|(([0-9]{1})\\.([0]{5})\sMHz)"),
+    OFFSET_UNIT("(([1-9]{1})\\.([0]{5})|([0-9]{3}))(\s)(M|k)Hz", 1, 6),
 
     /**
      * Catches common UV5R Step:
@@ -33,8 +35,10 @@ public enum FrequencyType {
     /**
      * Catches common FT3D Step:
      * 5 kHz
+     * 25 kHz
+     * 12.5 kHz
      */
-    STEP_UNIT("(([0-9]{1,3})(\\.[0-9]{1})?)\s(kHz)"),
+    STEP_UNIT("(([0-9]{1,2})|([0-9]{1,2}\\.[0-9]{1,2}))\s(kHz)", 1, 4),
 
     /**
      * Only acceptable TX_RX frequency
@@ -44,7 +48,7 @@ public enum FrequencyType {
     TX_RX("([0-9]{1,3})\\.([0-9]{2}(5|0)[0]{2})"),
 
     /**
-     * Default, emtpty frequency type
+     * Default, empty frequency type
      */
     NONE(null);
 
@@ -57,9 +61,13 @@ public enum FrequencyType {
     }
 
     private String validator;
+    private int valueGroup;
+    private int unitGroup;
 
-    private FrequencyType(String validator) {
+    private FrequencyType(String validator, int valueGroup, int unitGroup) {
         this.validator = validator;
+        this.valueGroup = valueGroup;
+        this.unitGroup = unitGroup;
     }
 
     /**

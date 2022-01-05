@@ -1,4 +1,4 @@
-package org.hamhub.ccsv.common;
+package org.hamhub.ccsv.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,6 @@ import java.util.Scanner;
 import org.hamhub.api.baofeng.UV5RColumn;
 import org.hamhub.api.yeasu.FT3DColumn;
 import org.hamhub.api.Format;
-import org.hamhub.ccsv.utils.Validator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
